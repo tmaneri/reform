@@ -1037,11 +1037,12 @@ function useReform(fields) {
     return __spreadProps(__spreadValues({}, carry), { [key]: fields[key].validate || null });
   }, {});
   const validate = () => {
-    return Object.keys(validators).reduce((carry, key) => {
-      const validator = validators[key];
-      errors[key] = (Array.isArray(validator) ? validator : [validator]).map((validator2) => typeof validator2 === "function" ? validator2(data[key], data) : validator2).find((valid) => typeof valid === "string");
-      return carry && !errors[key];
-    }, true);
+    return Object.keys(validators).reduce((carry, key) => carry && validateField(key), true);
+  };
+  const validateField = (name) => {
+    const validator = validators[name];
+    errors[name] = (Array.isArray(validator) ? validator : [validator]).map((validator2) => typeof validator2 === "function" ? validator2(data[name], data) : validator2).find((valid) => typeof valid === "string");
+    return !errors[name];
   };
   return reactive({
     data,
@@ -1050,6 +1051,7 @@ function useReform(fields) {
     rollback,
     errors,
     validate,
+    validateField,
     dirty: computed(() => Object.keys(changes.value).length > 0),
     addErrors: (newErrors) => {
       Object.entries(newErrors).forEach(([name, messages]) => {

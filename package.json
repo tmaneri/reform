@@ -1,6 +1,6 @@
 {
   "name": "@tmaneri/reform",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": [
     "dist"
   ],
@@ -20,7 +20,8 @@
     "build": "vite build && vue-tsc --emitDeclarationOnly && mv dist/src dist/types",
     "preserve": "vite build",
     "serve": "vite preview --port 5050",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "report": "export BUILD_REPORT=1 && npm run build && open ./stats.html"
   },
   "dependencies": {
     "@types/lodash-es": "^4.17.6",
@@ -36,6 +37,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.5.0",
     "prettier": "^2.6.1",
+    "rollup-plugin-visualizer": "^5.6.0",
     "typescript": "~4.3.5",
     "vite": "^2.6.3",
     "vue": "^3.2.20",

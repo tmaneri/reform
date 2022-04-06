@@ -53,19 +53,23 @@ export function useReform<T extends { [x: string]: FieldValue }>(fields: {
   }, {});
 
   const validate = () => {
-    return Object.keys(validators).reduce((carry, key) => {
-      const validator = validators[key];
+    return Object.keys(validators).reduce(
+      (carry, key) => carry && validateField(key),
+      true
+    );
+  };
 
-      errors[key] = (Array.isArray(validator) ? validator : [validator])
-        .map((validator) =>
-          typeof validator === "function"
-            ? validator(data[key], data)
-            : validator
-        )
-        .find((valid) => typeof valid === "string");
+  const validateField = (name: string) => {
+    const validator = validators[name];
+    errors[name] = (Array.isArray(validator) ? validator : [validator])
+      .map((validator) =>
+        typeof validator === "function"
+          ? validator(data[name], data)
+          : validator
+      )
+      .find((valid) => typeof valid === "string");
 
-      return carry && !errors[key];
-    }, true);
+    return !errors[name];
   };
 
   return reactive({
@@ -75,6 +79,7 @@ export function useReform<T extends { [x: string]: FieldValue }>(fields: {
     rollback,
     errors,
     validate,
+    validateField,
 
     dirty: computed(() => Object.keys(changes.value).length > 0),
 

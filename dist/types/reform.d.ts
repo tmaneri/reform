@@ -20,6 +20,7 @@ export declare function useReform<T extends {
         [x: string]: ValidatorError;
     };
     validate: () => boolean;
+    validateField: (name: string) => boolean;
     dirty: boolean;
     addErrors: (newErrors: {
         [key: string]: string | string[];
