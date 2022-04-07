@@ -1,6 +1,6 @@
 {
   "name": "@tmaneri/reform",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "files": [
     "dist"
   ],
@@ -23,12 +23,10 @@
     "typecheck": "vue-tsc --noEmit",
     "report": "export BUILD_REPORT=1 && npm run build && open ./stats.html"
   },
-  "dependencies": {
-    "@types/lodash-es": "^4.17.6",
-    "lodash-es": "^4.17.21"
-  },
   "devDependencies": {
     "@types/node": "^16.11.26",
+    "@types/lodash-es": "^4.17.6",
+    "lodash-es": "^4.17.21",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@vitejs/plugin-vue": "^1.9.3",
     "eslint": "^8.12.0",
